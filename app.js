@@ -3,6 +3,7 @@ const { engine } = require('express-handlebars')
 const app = express()
 const port = 3000
 const bodyParser = require('body-parser')
+const generateUrl = require('./generate_url')
 //setting template engine
 app.engine('hbs', engine({ defaultLayout: 'main', extname: ".hbs" }))
 app.set('view engine', 'hbs')
@@ -15,8 +16,8 @@ app.get('/', (req, res) => {
 })
 
 app.post('/', (req, res) => {
-  console.log('req.body', req.body)
-  res.render('index')
+  const newUrl =generateUrl(req.body)
+  res.render('index', {newUrl})
 
 })
 

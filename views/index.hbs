@@ -1,4 +1,9 @@
 <form action="/" method="post">
   <input type="url" name="url" id="url">
+  {{#if newUrl}}
+  <div class="alert alert-info" role="alert">
+    <span class="mr-2">Your New URL is:</span> <code>{{newUrl}}</code>
+  </div>
+  {{/if}}
   <button type="submit">Generate</button>
 </form>
