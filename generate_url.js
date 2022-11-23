@@ -9,8 +9,7 @@ function generateUrl() {
   for (let i = 0; i < 5; i++) {
     result += collection[Math.floor(Math.random() * collection.length)]
   }
-  result ='/new-url/'+result
-  console.log(result)
+  result ='/url/'+result
   return result
 }
 

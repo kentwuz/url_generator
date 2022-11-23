@@ -5,6 +5,7 @@ const port = 3000
 const bodyParser = require('body-parser')
 const generateUrl = require('./generate_url')
 const mongoose = require('mongoose')
+const Url = require('./models/url')
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
@@ -32,11 +33,16 @@ app.get('/', (req, res) => {
   res.render('index')
 })
 
-app.post('/', (req, res) => {
-  const newUrl = generateUrl(req.body)
-  res.render('index', { newUrl })
+app.post('/url', (req, res) => {
+  const url = req.body.url
+  const newUrl = generateUrl()
+  console.log(url, newUrl)
+  return Url.create({ url, newUrl })
+    .then(() => res.render('index', { newUrl }))
+    .catch(error => console.log(error))
 
 })
+
 
 app.listen(port, () => {
   console.log(`app is running on port ${port}`)
