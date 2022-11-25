@@ -4,12 +4,9 @@ const app = express()
 const port = 3000
 const bodyParser = require('body-parser')
 const generateUrl = require('./generate_url')
-const mongoose = require('mongoose')
 const URL = require('./models/url')
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config()
-}
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+
+require('./config/mongoose')
 
 //setting template engine
 app.engine('hbs', engine({ defaultLayout: 'main', extname: ".hbs" }))
@@ -18,16 +15,6 @@ app.set('view engine', 'hbs')
 //setting body-parser
 app.use(bodyParser.urlencoded({ extended: true }))
 
-// 取得資料庫連線狀態
-const db = mongoose.connection
-// 連線異常
-db.on('error', () => {
-  console.log('mongodb error!')
-})
-// 連線成功
-db.once('open', () => {
-  console.log('mongodb connected!')
-})
 //setting routes
 app.get('/', (req, res) => {
   res.render('index')
@@ -44,7 +31,7 @@ app.post('/url', (req, res) => {
     .then(data =>
       data ? data : generator())
     .then(data => res.render('index', {
-      shortURL: data.shortURL
+      shortURL: data.shortURL,
     }))
 
   function generator() {
@@ -55,9 +42,8 @@ app.post('/url', (req, res) => {
   }
 })
 
-app.get('/url/:shortURLID', (req, res) => {
-  const shortURL = `/url/${req.params.shortURLID}`
-  console.log(shortURL)
+app.get('/url/:shortUrlID', (req, res) => {
+  const shortURL = `/url/${req.params.shortUrlID}`
   const cantFindMessage = '找不到相關資料'
   URL.findOne({ shortURL: shortURL })
     .then(data => {
