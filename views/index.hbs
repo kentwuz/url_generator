@@ -2,9 +2,16 @@
   <input type="url" name="url" id="url">
   {{#if alertMessage}}
   <div class="alert alert-info" role="alert">
-    <span class="mr-2">NONO</span><span>{{alertMessage}}</span>
+    <span class="mr-2">提示</span><span>{{alertMessage}}</span>
   </div>
   {{/if}}
+
+  {{#if cantFindMessage}}
+  <div class="alert alert-info" role="alert">
+    <span class="mr-2">錯誤</span><span>{{cantFindMessage}}</span>
+  </div>
+  {{/if}}
+  
   {{#if shortURL}}
   <div class="alert alert-info" role="alert">
     <span class="mr-2">Your New URL is:</span> <code>{{shortURL}}</code>

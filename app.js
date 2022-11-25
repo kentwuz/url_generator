@@ -40,25 +40,38 @@ app.post('/url', (req, res) => {
   if (originalURL.length === 0) {
     return res.render('index', { alertMessage })
   }
-  URL.findOne({originalURL:originalURL})
-  .then(data => 
-    data ? data : generator() )
-  .then(data => res.render('index', {
-    shortURL: data.shortURL}))
+  URL.findOne({ originalURL: originalURL })
+    .then(data =>
+      data ? data : generator())
+    .then(data => res.render('index', {
+      shortURL: data.shortURL
+    }))
 
   function generator() {
-  const shortURL = generateUrl()
-  return URL.create({ originalURL, shortURL })
-    .then(() => res.render('index', { shortURL }))
-    .catch(error => console.log(error))
-}
-  // const shortURL = generateUrl()
-  // return URL.create({ originalURL, shortURL })
-  //   .then(() => res.render('index', { shortURL }))
-  //   .catch(error => console.log(error))
+    const shortURL = generateUrl()
+    return URL.create({ originalURL, shortURL })
+      .then(() => res.render('index', { shortURL }))
+      .catch(error => console.log(error))
+  }
 })
 
-
+app.get('/url/:shortURLID', (req, res) => {
+  const shortURL = `/url/${req.params.shortURLID}`
+  console.log(shortURL)
+  const cantFindMessage = '找不到相關資料'
+  URL.findOne({ shortURL: shortURL })
+    .then(data => {
+      if (!data) {
+        console.log('cant find data')
+        return res.render('index', { cantFindMessage })
+      }
+      else {
+        console.log('found something!')
+        res.redirect(data.originalURL)
+      }
+    })
+    .catch(error => console.log(error))
+})
 app.listen(port, () => {
   console.log(`app is running on port ${port}`)
 })
