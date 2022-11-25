@@ -5,7 +5,7 @@ const port = 3000
 const bodyParser = require('body-parser')
 const generateUrl = require('./generate_url')
 const mongoose = require('mongoose')
-const Url = require('./models/url')
+const URL = require('./models/url')
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
@@ -34,13 +34,28 @@ app.get('/', (req, res) => {
 })
 
 app.post('/url', (req, res) => {
-  const url = req.body.url
-  const newUrl = generateUrl()
-  console.log(url, newUrl)
-  return Url.create({ url, newUrl })
-    .then(() => res.render('index', { newUrl }))
-    .catch(error => console.log(error))
+  const originalURL = req.body.url
+  const alertMessage = '您所輸入的欄位為空'
+  //例外1 : 當輸入欄裡沒有輸入任何資料且送出表單
+  if (originalURL.length === 0) {
+    return res.render('index', { alertMessage })
+  }
+  URL.findOne({originalURL:originalURL})
+  .then(data => 
+    data ? data : generator() )
+  .then(data => res.render('index', {
+    shortURL: data.shortURL}))
 
+  function generator() {
+  const shortURL = generateUrl()
+  return URL.create({ originalURL, shortURL })
+    .then(() => res.render('index', { shortURL }))
+    .catch(error => console.log(error))
+}
+  // const shortURL = generateUrl()
+  // return URL.create({ originalURL, shortURL })
+  //   .then(() => res.render('index', { shortURL }))
+  //   .catch(error => console.log(error))
 })
 
 
