@@ -56,6 +56,7 @@ app.get('/url/:shortUrlID', (req, res) => {
     })
     .catch(error => console.log(error))
 })
+
 app.listen(port, () => {
   console.log(`app is running on port ${port}`)
 })

@@ -1,9 +1,8 @@
 {{#if shortURL}}
 <div class="result-content" role="alert">
   <h2>Success! Please use this link:</h2>
-  <span class="mr-2"><a href="http://localhost:3000{{shortURL}}">http://localhost:3000{{shortURL}}</a>
-    {{/if}}
-
-    <div class="result-button">
-      <a href=""></a>
-    </div>
+  <p class="mr-2"><a href="http://localhost:3000{{shortURL}}" id="short-url">http://localhost:3000{{shortURL}}</a></p>
+  <div class="copy-button mt-3" style="display:flex ;justify-content:center"><button class="btn btn-primary" style="width: 100px;">Copy</button>
+  </div>
+</div>
+{{/if}}
