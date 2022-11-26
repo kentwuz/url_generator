@@ -30,7 +30,7 @@ app.post('/url', (req, res) => {
   URL.findOne({ originalURL: originalURL })
     .then(data =>
       data ? data : generator())
-    .then(data => res.render('index', {
+    .then(data => res.render('result', {
       shortURL: data.shortURL,
     }))
 
