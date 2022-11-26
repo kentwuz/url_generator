@@ -3,7 +3,7 @@ const { engine } = require('express-handlebars')
 const app = express()
 const port = 3000
 const bodyParser = require('body-parser')
-const generateUrl = require('./generate_url')
+const generateUrl = require('./utils/generate_url')
 const URL = require('./models/url')
 app.use(express.static('public'))//使用靜態檔案
 require('./config/mongoose')
@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
   res.render('index')
 })
 
-app.post('/url', (req, res) => {
+app.post('/', (req, res) => {
   const originalURL = req.body.url
   const alertMessage = '您所輸入的欄位為空'
   //例外1 : 當輸入欄裡沒有輸入任何資料且送出表單
