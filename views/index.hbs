@@ -1,15 +1,21 @@
 <form action="/url" method="post">
-  <input type="url" name="url" id="url">
-  {{#if alertMessage}}
-  <div class="alert alert-info" role="alert">
-    <span class="mr-2">提示</span><span>{{alertMessage}}</span>
-  </div>
-  {{/if}}
+  <div class="index-body">
+    <div class="body-content">
+      <input type="url" name="url" id="url" style="width: 500px;" placeholder="Input URL here">
+      {{#if alertMessage}}
+      <div class="alert alert-info" role="alert">
+        <span class="mr-2">提示</span><span>{{alertMessage}}</span>
+      </div>
+      {{/if}}
 
-  {{#if cantFindMessage}}
-  <div class="alert alert-info" role="alert">
-    <span class="mr-2">錯誤</span><span>{{cantFindMessage}}</span>
+      {{#if cantFindMessage}}
+      <div class="alert alert-info" role="alert">
+        <span class="mr-2">錯誤</span><span>{{cantFindMessage}}</span>
+      </div>
+      {{/if}}
+    </div>
+    <div class="body-button" style="margin-top: 50px;" >
+      <button class="btn btn-outline-primary" type="submit" style="width: 200px;">Generate</button>
+    </div>
   </div>
-  {{/if}}
-  <button type="submit">Generate</button>
 </form>

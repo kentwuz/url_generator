@@ -5,7 +5,7 @@ const port = 3000
 const bodyParser = require('body-parser')
 const generateUrl = require('./generate_url')
 const URL = require('./models/url')
-
+app.use(express.static('public'))//使用靜態檔案
 require('./config/mongoose')
 
 //setting template engine
@@ -48,11 +48,9 @@ app.get('/url/:shortUrlID', (req, res) => {
   URL.findOne({ shortURL: shortURL })
     .then(data => {
       if (!data) {
-        console.log('cant find data')
         return res.render('index', { cantFindMessage })
       }
       else {
-        console.log('found something!')
         res.redirect(data.originalURL)
       }
     })

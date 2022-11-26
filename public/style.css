@@ -1,0 +1,32 @@
+.title {
+  display: flex;
+  justify-content: center;
+  margin: 120px 0px 70px 0px;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 100px;
+}
+
+.content-image {
+  width: 20%;
+}
+
+.body {
+  display: flex;
+  justify-content: center;
+}
+
+.index-body {
+  display: inline-block;
+  justify-content: center;
+}
+.body-content {
+  margin-bottom: 20px;
+}
+.body-button {
+  display: flex;
+  justify-content: center;
+}
